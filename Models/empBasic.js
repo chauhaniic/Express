@@ -168,8 +168,8 @@ var empProfile = {
     addEmpedu: function (emp, callback) {
         return db.query('INSERT INTO `emp_edu_details` VALUES(?,?,?,?,?,?,?)', [
             emp.emp_id,
-            emp.institution,
             emp.qualification,
+            emp.institution,
             emp.passing_year,
             emp.score,
             emp.qua_area,
