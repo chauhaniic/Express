@@ -166,9 +166,10 @@ var empProfile = {
         db.query('select * from emp_edu_details where emp_id=?',[id], callback);
     },
     addEmpedu: function (emp, callback) {
-        return db.query('INSERT INTO `emp_edu_details` VALUES(?,?,?,?,?,?)', [
+        return db.query('INSERT INTO `emp_edu_details` VALUES(?,?,?,?,?,?,?)', [
             emp.emp_id,
             emp.institution,
+            emp.qualification,
             emp.passing_year,
             emp.score,
             emp.qua_area,
@@ -176,11 +177,13 @@ var empProfile = {
         ], callback);
     },
     deleteEmp_edu: function (id, callback) {
-        return db.query('delete from emp_edu_details where emp_id=?', [id], callback);
+        let temp=id.split("&");
+        return db.query('delete from emp_edu_details where `emp_edu_details`.`emp_id` = ? AND `emp_edu_details`.`qualification`=? ', [temp[0],temp[1]], callback);
     },
     updateEmpedu: function (id, emp, callback) {
-        return db.query('update emp_edu_details set `emp_id`=?,`institution`=?,`passing_year`=?,`score`=?,`qua_area`=? where emp_id=?', [ 
+        return db.query('update emp_edu_details set `emp_id`=?,`institution`=?,`qualification`=?,`passing_year`=?,`score`=?,`qua_area`=? where emp_id=?', [ 
             emp.institution,
+            emp.qualification,
             emp.passing_year,
             emp.score,
             emp.qua_area,
@@ -199,14 +202,15 @@ var empProfile = {
             emp.from_date,
             emp.to_date,
             emp.company,
-            emp.destignation,
+            emp.designation,
             emp.r_date,
             emp.nr_date,
             current_time
             ], callback);
     },
-    deleteEmp_exp: function (id, callback) {
-        return db.query('delete from emp_exp_details where emp_id=?', [id], callback);
+    deleteEmp_exp: function (id,callback) {
+        let temp=id.split("&");
+        return db.query('delete from emp_exp_details where emp_id=? AND `from_date`=?', [temp[0],temp[1]], callback);
     },
     updateEmpexp: function (id, emp, callback) {
         return db.query('update emp_exp_details set `from_date`=?, `to_date`=?, `company`=?, `designation`=?, `r_date`=?, `nr_date`',
@@ -238,10 +242,11 @@ var empProfile = {
         ], callback);
     },
     deleteEmp_skill: function (id, callback) {
-        return db.query('delete from emp_skill_details where emp_id=?', [id], callback);
+        let temp=id.split("&");
+        return db.query('delete from emp_skill_details where emp_id=? AND `skill`=?', [temp[0],temp[1]], callback);
     },
     updateEmpskill: function (id, emp, callback) {
-        return db.query('update emp_skill_details set `skill_cat`=?, `skill`=?, `skill_level`=?, `is_current`=?, `exper`=?, `remarks` where emp_id=?',
+        return db.query('update emp_skill_details set `skill_cat`=?, `skill`=?, `skill_level`=?, `is_current`=?, `exper`=?, `remarks`=? where emp_id=?',
         [
             emp.skill_cat,
             emp.skill,
