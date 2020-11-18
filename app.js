@@ -8,6 +8,13 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var tasksRouter = require("./routes/task_router");
 var productRouter = require("./routes/product_route");
+var empBasicRouter=require("./routes/emp_basic_route");
+var empPersonalRouter=require("./routes/emp_personal_route");
+var empBankRouter=require("./routes/emp_bank_route");
+var empAddRouter=require("./routes/emp_add_route");
+var empEduRouter=require("./routes/emp_edu_route");
+var empExpRouter=require("./routes/emp_exp_route");
+var empSkillRouter=require("./routes/emp_skill_route");
 var app = express();
 //const bodyParser = require("body-parser");
 // view engine setup
@@ -28,6 +35,9 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/tasks", tasksRouter);
 app.use("/products", productRouter);
+app.use("/employee", empBasicRouter);
+/* app.use("/employee/add", empBasicRouter); */
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

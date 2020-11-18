@@ -5,6 +5,9 @@ var Task = {
   getAllTasks: function (callback) {
     return db.query('select * from task', callback);
   },
+  getTaskById: function (id,callback) {
+    return db.query('select * from task where Id=?',[id], callback);
+  },
   addTask: function (task, callback) {
     return db.query('insert into task values(?,?,?)', [task.Id, task.Title, task.Status], callback);
   },

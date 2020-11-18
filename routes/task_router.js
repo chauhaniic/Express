@@ -1,16 +1,33 @@
+const { request } = require('express');
 var express = require('express');
 var router = express.Router();
 var task = require('../Models/Task');
 
-router.get('/', function (req, res, next) {
-    task.getAllTasks(function (err, rows) {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(rows);
-        }
-    });
+router.get('/:id?', function (req, res, next) 
+{
+    if(req.params.id){
+        task.getTaskById(req.params.id, function (err, rows) {
+
+            if (err) {
+                res.json(err);
+            }
+            else {
+                res.json(rows);
+            }
+
+        });
+    }
+    else{
+        task.getAllTasks(function (err, rows) {
+            if (err) {
+                res.json(err);
+            } else {
+                res.json(rows);
+            }
+        });
+    }
 });
+
 //http://localhost:3000/tasks/
 router.post('/', function (req, res, next) {
 
