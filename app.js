@@ -1,5 +1,10 @@
 var createError = require("http-errors");
 var express = require("express");
+const fileUpload = require('express-fileupload');
+const bodyParser = require('body-parser');
+var logger = require('morgan');
+
+
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
@@ -15,6 +20,7 @@ var empAddRouter=require("./routes/emp_add_route");
 var empEduRouter=require("./routes/emp_edu_route");
 var empExpRouter=require("./routes/emp_exp_route");
 var empSkillRouter=require("./routes/emp_skill_route");
+var fileRouter = require('./routes/file_route');
 var app = express();
 //const bodyParser = require("body-parser");
 // view engine setup
@@ -32,6 +38,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 //app.use(bodyParser);
 app.use("/", indexRouter);
+app.use('/files',fileRouter);
 app.use("/users", usersRouter);
 app.use("/tasks", tasksRouter);
 app.use("/products", productRouter);
