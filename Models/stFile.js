@@ -54,6 +54,33 @@ var FileS={
         //Use the mv() method to place the file in upload directory (i.e. "uploads")
         avatar.mv(path);
         return db.query('insert into file (`fileName`,`filePath`,`fileSize`) values(?,?,?)', [fName,path1,avatar.size,], callback);
+    },
+    updateFile:function(id,Files,callback){
+        console.log(Files)
+        //Use the name of the input field (i.e. "upload") to retrieve the uploaded file
+        let avatar = Files.upload;
+        var extension = avatar.name;
+        extension = extension.replace(" ","");
+        var fName=extension
+        var path="./public/files/"+fName;
+        var delpath="./public/files/"+id;
+        var path1="/files/"+fName;
+        console.log(avatar.mimetype);
+
+        try {
+            if(fs.existsSync(delpath)){
+                fs.unlinkSync(delpath)
+                //file removed
+            }
+            
+        } catch(err) {
+            console.error(err)
+        }
+
+        //Use the mv() method to place the file in upload directory (i.e. "uploads")
+        avatar.mv(path);
+        console.log(id);
+        return db.query('update file set `fileName`=? ,`filePath`=?,`fileSize`=? where id=? ', [fName,path1,avatar.size,id], callback);
     }
 };
  

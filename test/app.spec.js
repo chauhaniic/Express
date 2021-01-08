@@ -123,34 +123,30 @@ describe('File API',()=>{
     /* 
     * Test the Update/PUT route 
     */
-   /* describe("PUT /files/:id", () => {
+    describe("PUT /files/:id", () => {
         it("It should PUT an existing file", (done) => {
-            const Id = "Jblkk2211323-HS_Marksheet.pdf";
-            const task = {
-                fileName: "File_1_changed"
-            };
+            const Id = "56";
+            
             chai.request(server)                
                 .put("/files/" + Id)
-                .send(task)
+                .attach('upload',fs.readFileSync(`${__dirname}/img0777.jpg`),'files/img0777.jpg')
                 .end((err, response) => {
                     response.should.have.status(200);
                     response.body.should.like({
-                        "affectedRows":0
+                        "affectedRows":1
                     });
                 done();
                 });
         });
 
-         it("PUT File not Exist!", (done) => {
+         it("PUT FileName not Exist!", (done) => {
             const Id = "10";
-            const file = {
-                fileName: "Ta.pdf"
-            };
+            
             chai.request(server)                
                 .put("/files/" + Id)
-                .send(file)
+                .attach('upload',fs.readFileSync(`${__dirname}/img0777.jpg`),'files/img0777.jpg')
                 .end((err, response) => {
-                    response.should.have.status(500);
+                    response.should.have.status(200);
                     response.body.should.like({
                         "affectedRows":0
                     });
@@ -159,6 +155,6 @@ describe('File API',()=>{
         });        
     });
 
- */
+
 
 });
