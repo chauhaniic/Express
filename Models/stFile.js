@@ -11,8 +11,10 @@ var FileS={
     deleteFile:function(Files,callback){
         let path='./public/files/'+Files;
         try {
-            fs.unlinkSync(path)
-            //file removed
+            if(fs.existsSync(path)){
+                fs.unlinkSync(path)
+                //file removed
+            }
         } catch(err) {
             console.error(err)
         }
@@ -42,7 +44,9 @@ var FileS={
         let avatar = Files.upload;
         var extension = avatar.name;
         extension = extension.replace(" ","");
-        var fName=text+dt.getDate()+dt.getMonth()+dt.getMilliseconds()+"-"+extension
+        var fName=extension
+        /* 
+        var fName=text+dt.getDate()+dt.getMonth()+dt.getMilliseconds()+"-"+extension */
         var path="./public/files/"+fName;
     
         var path1="/files/"+fName;
